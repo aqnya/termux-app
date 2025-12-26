@@ -26,7 +26,6 @@ jobs:
         env:
           PACKAGE_VARIANT: ${{ matrix.package_variant }}
         run: |
-          sudo apt update && sudo apt install tree
           exit_on_error() { echo "$1"; exit 1; }
 
           echo "Setting vars"
@@ -59,8 +58,6 @@ jobs:
           if ! ./gradlew assembleRelease; then
             exit_on_error "Build failed for '$APK_VERSION_TAG' build."
           fi
-          done
-
           
 
       - name: Attach universal APK file
