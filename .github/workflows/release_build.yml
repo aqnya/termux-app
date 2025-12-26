@@ -1,4 +1,4 @@
-name: Build
+name: Release
 
 on:
   push:
@@ -26,6 +26,7 @@ jobs:
         env:
           PACKAGE_VARIANT: ${{ matrix.package_variant }}
         run: |
+          sudo apt update && sudo apt install tree
           exit_on_error() { echo "$1"; exit 1; }
 
           echo "Setting vars"
@@ -77,6 +78,7 @@ jobs:
             > "${APK_BASENAME_PREFIX}_sha256sums"); then
             exit_on_error "Generate sha25sums failed for '$APK_VERSION_TAG' release."
           fi
+          tree ./app/build/outputs
 
       - name: Attach universal APK file
         uses: actions/upload-artifact@v4
